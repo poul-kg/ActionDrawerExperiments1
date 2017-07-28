@@ -1,0 +1,71 @@
+<App>
+    <DockPanel>
+        <StatusBarBackground Dock="Top" />
+        <BottomBarBackground Dock="Bottom" />
+        <ScrollView ux:Name="Scroll" Height="100%">
+            <StackPanel Height="100%" Alignment="Bottom">
+                <Rectangle Layer="Background">
+                    <Stroke Width="2" Color="#f00" />
+                </Rectangle>
+                <Each Count="2">
+                    <Rectangle Height="32" Margin="5" Color="#fcc">
+                        <Text Alignment="Center">Hide</Text>
+                        <Clicked>
+                            <Toggle Target="expanded" />
+                        </Clicked>
+                    </Rectangle>
+                    <Rectangle Height="32" Margin="5" Color="#ccf">
+                        <Text Alignment="Center">Show</Text>
+                        <Clicked>
+                            <Toggle Target="expanded" />
+                        </Clicked>
+                    </Rectangle>
+                </Each>
+                <!-- Horizontal Scroll -->
+                <ScrollView AllowedScrollDirections="Horizontal" ClipToBounds="false">
+                    <StackPanel Orientation="Horizontal" >
+                        <Each Count="10">
+                            <!-- Hellow Square -->
+                            <Panel Width="64" Height="64" Margin="10" ZOffset="10">
+                                <Rectangle Layer="Background" Color="#fd2" CornerRadius="10" />
+                                <Draggable />
+                            </Panel>
+                        </Each>
+                    </StackPanel>
+                </ScrollView>
+            </StackPanel>
+        </ScrollView>
+        <WhileTrue ux:Name="expanded">
+            <Move Y="-1 * height(Drawer)" Target="Scroll" Duration=".3" />
+            <Move Y="-1 * height(Drawer)" Target="Drawer" Duration=".3" />
+        </WhileTrue>
+        <Panel ux:Name="Drawer" Alignment="Bottom" Y="height(Drawer)" >
+            
+            <!-- <LayoutAnimation>
+                <Resize X="1" Y="1" RelativeTo="SizeChange" Duration="0.25"/>
+                <Move X="1" Y="1" RelativeTo="PositionChange" Duration="0.25"/>
+            </LayoutAnimation> -->
+                        
+            <DockPanel Color="#faa" ZOffset="0">
+                <Panel ux:Name="Header" Dock="Top" Color="#aaf" Height="96">
+                    
+                    <SwipeGesture Direction="Down" ux:Name="swipeDown" Length="1" />
+                    
+                    <Swiped Source="swipeDown">
+                        <DebugAction Message="Swipe DOWN!" />
+                        <Toggle Target="expanded" />
+                    </Swiped>
+                </Panel>
+
+                <ScrollView ux:Name="bottomReaderContent">
+                    <StackPanel ItemSpacing="1">
+                        <Each Count="3">
+                            <Panel Height="56" Color="#fffa" />
+                        </Each>
+                    </StackPanel>
+                </ScrollView>
+
+            </DockPanel>
+        </Panel>
+    </DockPanel>
+</App>
